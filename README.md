@@ -6,31 +6,21 @@ A minimal starter project to practice with [Github REST API](https://developer.g
 
 ## Running the app
 
-### 1. Install project dependencies
+1. Install project dependencies
 ```sh
 $ npm install
 ```
 
-### 2. Add Environment Variables
-Copy the `.env.default` file and rename it to `.env`.
+2. Run the app
+
+Run the following command to start a development server.
 ```sh
-$ cp .env.default .env
-```
-
-then edit the `OAUTH_TOKEN` environment variable. You can use your github personal access token which you can find in [Github developer settings](https://github.com/settings/tokens)
-
-
-### 3. Run the app
-
-You can start the server by running
-```$
 $ npm start
 ```
 
-or you can start the server in development mode. This command uses [nodemon](https://github.com/remy/nodemon) to watch changes in your code and automatically restart the server.
-```sh
-$ npm run dev
-```
+## Try implementing features
 
-Finally, use `npm test` to run tests.
-
+- Use the [Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) API to request data from github. 
+- Load users profile informations and display them in a profile widget.
+- Load and display users favorite languages based on their public repositories in a Chart. 
+- Allow searching users from the search bar.
