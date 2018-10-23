@@ -1,20 +1,13 @@
-// https://medium.freecodecamp.org/environment-settings-in-javascript-apps-c5f9744282b6
-const baseUrl =  window.location.hostname === 'localhost'
-  ? 'http://localhost:3000'
-  : 'https://heig-vd-ga-server.herokuapp.com';
-
-
-const defaultSearch = 'octocat';
 const searchForm = document.getElementById('search-form');
 let chart = null;
 
 function getUser(username) {
-  return fetch(`${baseUrl}/users/${username}`)
+  return fetch(`/api/users/${username}`)
     .then(res => res.json());
 }
 
 function getLanguages(username) {
-  return fetch(`${baseUrl}/languages/${username}`)
+  return fetch(`/api/languages/${username}`)
     .then(res => res.json());
 }
 
@@ -37,7 +30,7 @@ function updateChart({ labels, data, backgroundColor }) {
     },
     options: {
       legend: {
-        display: false
+        display: false,
       },
       scales: {
         xAxes: [{
@@ -47,16 +40,16 @@ function updateChart({ labels, data, backgroundColor }) {
           },
           gridLines: {
             display: false,
-          }
+          },
         }],
         yAxes: [{
           ticks: {
             fontFamily: "'Roboto Mono'",
-          }
-        }]
+          },
+        }],
       },
-    }
-  }
+    },
+  };
 
   if (!chart) {
     chart = new Chart(ctx, options);
@@ -97,27 +90,26 @@ function handleSearch(username) {
       const labels = Object.keys(languages);
       const data = labels.map(label => languages[label]);
       const backgroundColor = labels.map(label => {
-        const color = colors[label] ? colors[label].color : null
+        const color = colors[label] ? colors[label].color : null;
         return color || '#000';
-      })
+      });
 
       updateProfile(user);
       updateChart({ labels, data, backgroundColor });
     })
     .catch(err => {
       updatePlaceholder('Oups, an error occured. Sorry, this app sucks...', 'text-error');
-      console.error('Cannot fetch data', err)
-    })
+      console.error('Cannot fetch data', err);
+    });
 }
 
-searchForm.addEventListener('submit', function (e) {
+searchForm.addEventListener('submit', function onSubmit(e) {
   e.preventDefault();
-  const username = this.elements['username'].value;
+  const username = this.elements.username.value;
   if (!username) {
     return;
   }
   handleSearch(username);
 });
 
-handleSearch(defaultSearch);
-
+handleSearch('octocat');
